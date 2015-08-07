@@ -13,7 +13,7 @@ namespace :load do
 
     # UNICORN TEMPLATE specific settings
     set :monit_unicorn_process_name, -> { "unicorn_#{fetch(:application)}_#{fetch(:stage)}" }
-    set :monit_unicorn_pid, shared_path.join("tmp/pids/unicorn.pid")
+    set :monit_unicorn_pid, -> { shared_path.join("tmp/pids/unicorn.pid") }
     set :monit_unicorn_service_name, -> { "unicorn_#{fetch(:application)}_#{fetch(:stage)}" }
     set :monit_unicorn_workers_number, 2
     set :monit_unicorn_worker_process_name, -> { "#{fetch(:application)}_#{fetch(:stage)}_unicorn_worker_" }
