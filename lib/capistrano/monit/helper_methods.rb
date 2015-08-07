@@ -18,7 +18,7 @@ module Capistrano
       end
 
       def final_path(name, path = nil)
-        path ||= "/etc/monit/conf.d/#{name}.conf"
+        path ||= "#{fetch(:monit_conf_dir_path)}/#{name}.conf"
 
         execute :sudo, :chmod, "644 #{tmp_path(name)}"
         execute :sudo, :mv, "#{tmp_path(name)} #{path}"

@@ -9,6 +9,7 @@ namespace :load do
     set :monit_configure_unicorn, false
     set :monit_templates_path, 'config/deploy/templates'
     set :monitrc_path, '/etc/monit/monitrc'    
+    set :monit_conf_dir_path, '/etc/monit/conf.d'
 
     # UNICORN TEMPLATE specific settings
     set :monit_unicorn_process_name, -> { "unicorn_#{fetch(:application)}_#{fetch(:stage)}" }
@@ -64,7 +65,7 @@ namespace :monit do
   task :generate_unicorn_config do
     on roles :app do
       upload! monit_template('monit_unicorn'), tmp_path('monit_unicorn')
-      final_path('monit_unicorn')
+      final_path('monit_unicorn', "#{fetch(:monit_conf_dir_path)}/#{fetch(:monit_unicorn_service_name)}.conf")
     end
   end
 
